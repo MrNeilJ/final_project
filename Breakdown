@@ -1,0 +1,132 @@
+In here I will just be breaking down the application bit by bit to get a better understanding of what needs
+to be done.
+
+Application Goal:
+Create a text based application that will have the user go through a "maze".  In the maze there will
+be some sort of goal (find a key, find an item, think of clue) in order to win.
+
+Application Theme:
+The game will consist of a simple bank robbery game.  The goal is to sneak in, disable the alarm, find the key, and
+get out before the cops arrive.  The team will have a total of 10 lock picks (60% chance of successful picking).
+If a lock pick breaks, it raises the chance of the cops coming by 10%.  If the alarm is triggered, the cops will
+arrive within 20 turns.
+
+Better breakdown:
+	Robber (main player)
+		- Items
+			- Lock pick
+				- Amount (10)
+				- Chance of success is 70%
+			- Vault Key
+				- Amount (0)
+					- Must find the key in order to increase amount
+	Cops (triggered event)
+		- Called
+			- Starts at 0%
+			- Each failed Lock pick raises % called by 10%
+			- Rolls each time a lock pick is used.
+		- Turns
+			- Starts at 20
+			- Each move the player does will decrease this timer by 1.
+			- Once it hits 0, the player has lost.
+	Rooms:
+		- Empty Room:
+			- Directions:
+				- North
+				- South
+				- East
+				- West
+			- Door Status:
+				- Unlocked
+			- Items:
+				- None
+			- Events
+				- Search room
+					- Searching raises the chance of cops coming by 5%
+					- 40% chance of finding money
+						- Randomly generated value between 1 and 25000.
+			- Room Description:
+				- "You walk into the room, but see nothing of interest."
+
+		- Managers Office:
+			- Directions (derived from Empty room)
+			- Door Status:
+				- Locked
+			- Items:
+				- Vault Key
+			- Events:
+				- Search room
+					- Searching raises the chance of cops coming by 5%
+					- key found
+			- Room Description:
+				- "You enter the room and see a name plate showing Managers Office, the room
+				   is cluttered with odd items, but you have a hunch that the key could be here..."
+
+		- Windowed Room:
+			- Directions (derived from Empty room)
+			- Door Status:
+				- Locked
+			- Items:
+				- None
+			- Events:
+				- Escape out window
+					- Lose 50% of money stolen
+			- Room Description:
+				- "You enter what looks like a Janitor's closet, you see a window on the far side.
+				   It is big enough to fit you and a few belongings, easy escape if we are in a
+				   pinch. Lets hope we don't need to use it."
+
+		- Vault room:
+			- Directions (derived from Empty room)
+			- Door Status:
+				- Locked
+					- Requires key to unlock, lock picks will not work
+			- Events:
+				- Take all items
+					- Raises chance of cops coming by 30%
+					- Robber value increases by 1 million
+				- take half of items
+					- Raises chance of cops coming by 15%
+					- Robber value increase by 500 thousand
+				- grab a handful
+					- Raises chance of cops coming by 5%
+					- Robber value increase by 200 thousand
+				- grab the shining idol in the back corner
+					- Raises chance of cops coming by 100%
+					- Robber value increases by 10 million
+			- Room Description:
+				- If you don't have the key:
+					- "You reach the shiny gray door labeled Vault, but notice that it requires a key
+					   a key to get in, better come back once we have found the key"
+				- If you have the vault key:
+					- "You see the shiny gray door labeled Vault, you stick the key in and open it slowly.
+						as you open it you see mounds of money everywhere, and a suspicious little idol in
+						the corner on what looks like cobblestone."
+		- Front Door:
+			- Directions (derived from Empty room)
+			- Door Status:
+				- Locked
+					- Lock Picking chance:
+						- 90%
+			- Events:
+				- Pick door (if locked)
+				- Leave
+			- Room Description:
+				- "You are standing at the Entrance to the bank, time to decide, do we leave? or do we keep going?"
+
+Game Key:
+- = Wall
+V = Vault
+M = Managers Office
+0 = Empty Room
+W = Windowed room
+F = Front Door
+
+Game Map:
+- - - - - - - -
+- - 0 - W - - -
+F 0 0 0 0 0 0 -
+- - - M	- - 0 -
+- - - - - - V -
+- - - - - - - -
+
