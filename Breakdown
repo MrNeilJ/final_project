@@ -20,6 +20,12 @@ Better breakdown:
 			- Vault Key
 				- Amount (0)
 					- Must find the key in order to increase amount
+		- Pointers
+			- Current room
+				- Will point to the room that the robber is currently standing in
+		- Methods
+			- Move(direction)
+				- Will move the robber to the requested room.
 	Cops (triggered event)
 		- Called
 			- Starts at 0%
@@ -124,9 +130,124 @@ F = Front Door
 
 Game Map:
 - - - - - - - -
-- - 0 - W - - -
-F 0 0 0 0 0 0 -
-- - - M	- - 0 -
+- - 3 - W - - -
+F 1 2 4 5 6 7 -
+- - - M	- - 8 -
 - - - - - - V -
 - - - - - - - -
+
+Room connections:
+Each room will utilize the North South East West features, which will link to another room.
+This will be linking it via pointers to different rooms. This will allow it to work similar to a doubly linked
+list. The user will be able to go back and forth, changing their current location.
+
+We will utilize a location pointer stored inside of the robber class to implement keeping track of their location.
+
+We will have a move method that will take in a command, "north" "south" "east" west" and will check to see if there is
+an actual pointer at that spot, if it returns null, then tell them that that direction points towards a wall.
+Otherwise allow them to move the current location to that pointed object. This is what will create the illusion
+of movement throughout the game.
+
+
+Detailed Game Map for Directional Pointers:
+         
+                           - - - - - - -
+                           | Room 3:    |
+                           | N: nullptr |
+                           | S: Room 2  |
+                           | E: nullptr |
+                           | W: nullptr |
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+| Front Door: | Room 1:    | Room 2     | Room 4:     | Room 5:     | Room 6:    | Room 7:    |
+| N: nullptr  | N: nullptr | N: Room 3  | N: nullptr  | N: Windowed | N: nullptr | N: nullptr |
+| S: nullptr  | S: nullptr | S: nullptr | S: Managers | S: nullptr  | S: nullptr | S: Room 8  |
+| E:  Room 1  | E: Room 2  | E:  Room 4 | E:  Room 5  | E:  Room 6  | E: Room 7  | E: nullptr |
+| W:  nullptr | W: Front   | W:  Room 1 | W:  Room 2  | W:  Room 4  | W: Room 5  | W: Room 6  |
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                                         | Managers:  |                          | Room 8:    |
+                                         | N: Room 4  |                          | N: Room 7  |
+                                         | S: nullptr |                          | S: Vault   |
+                                         | E: nullptr |                          | E: nullptr |
+                                         | W: nullptr |                          | W: nullptr |
+                                          - - - - - - -                           - - - - - - -
+                                                                                 | Vault:     |
+                                                                                 | N: Room 8  |
+                                                                                 | S: nullptr |
+                                                                                 | E: nullptr |
+                                                                                 | W: nullptr |
+                                                                                  - - - - - - -
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Room
+
+
+
+
+
+
+
+
+How the game play should look:
+Create the theme:
+"It was a dark stormy night, the heavy sound of rain masks your steps as you approach.  You look up and see
+the dimly light sign showing "Bank of the North". You jiggle door handle and see that it is locked.
+
+What would you like to do?
+    1) Attempt to pick the lock
+    2) Continue walking down the street and never look back
+
+If the user selects 2, the game will end.
+
+Otherwise if the user selects 1, allow them to attempt to unlock the door.
+
+Run through the robbers pick procedure, if they are successful then allow the user to move into the main room.
+
+How the movement should work:
+When the user selects a room, it'll then attempt to move them in that direction, if they are able to. Each room
+will host a different slew of options as to what they can search for in that room.
+
+Example of what a room prompt will look like:
+
+"You walk into the room, but see nothing of interest."
+
+What would you like to do?
+    1) Search Room
+    2) Move to the next room
+
+If the user selects 1:
+Run the search function to see if / what the user finds
+Once search is done, loop back to the initial options.
+
+If the user selects 2:
+Which direction would you like to go?
+    1) North
+    2) South
+    3) East
+    4) West
+
+If the direction the user chooses is NULL
+You run your hand across the wall, but you see no way to proceed that direction.
+
+Loop back to the search option.
+
+Which direction would you like to go?
+    1) North
+    2) South
+    3) East
+    4) West
+
+If the option is a valid room, proceed to the next room.
+
+
 
