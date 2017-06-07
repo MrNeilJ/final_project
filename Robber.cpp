@@ -18,19 +18,42 @@ void Robber::move() {
 		// Make sure the user selected a value between 1 and 4
 		if (direction >= 1 && direction <= 4) {
 			// Check to see if the direction has a valid room
-			if (!currRoom->getRoom(direction)) {
+			if (!(currRoom->getRoom(direction))) {
 				std::cout << "You turn and face a wall, you cannot walk this direction." << std::endl;
-				std::cout << "Try a different direction";
+				std::cout << "Try a different direction" << std::endl;
 			}
 			else {
 				moved = true;
-				currRoom = currRoom->moveRoom(direction);
+				currRoom = currRoom->moveRoom(direction, lockPick, currRoom);
 			}
 		}
 		else {
 			std::cout << "That isn't an option, come on...you worry me." << std::endl;
 		}
 	} while (!moved);
+}
+
+void Robber::startMove() {
+	currRoom = currRoom->moveRoom(3, lockPick, currRoom);
+}
+
+void Robber::setLocation(Room* location) {
+	currRoom = location;
+}
+
+Robber::Robber(Room* location) {
+	lockPick = 10;
+	currRoom = location;
+	vaultKey = false;
+}
+Robber::Robber() {
+	lockPick = 10;
+	currRoom = nullptr;
+	vaultKey = false;
+}
+
+Room *Robber::getLocation() {
+	return currRoom;
 }
 
 

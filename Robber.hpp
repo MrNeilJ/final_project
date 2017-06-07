@@ -15,10 +15,12 @@ private:
 	bool  	vaultKey;	// Boolean value to check if the Robber has the main key
 	Room* 	currRoom;	// Pointer to the current room the robber is in.
 public:
+	Robber();
+	Robber(Room*);
 	void move();
-	bool roomCheck(int direction);
-
-
+	void startMove();
+	void setLocation(Room*);
+	Room* getLocation();
 };
 
 

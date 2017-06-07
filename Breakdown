@@ -151,12 +151,12 @@ of movement throughout the game.
 
 Detailed Game Map for Directional Pointers:
          
-                           - - - - - - -
-                           | Room 3:    |
-                           | N: nullptr |
-                           | S: Room 2  |
-                           | E: nullptr |
-                           | W: nullptr |
+                           - - - - - - -              - - - - - - -
+                           | Room 3:    |             | Window:    |
+                           | N: nullptr |             | N: nullptr |
+                           | S: Room 2  |             | S: Room 5  |
+                           | E: nullptr |             | E: nullptr |
+                           | W: nullptr |             | W: nullptr |
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 | Front Door: | Room 1:    | Room 2     | Room 4:     | Room 5:     | Room 6:    | Room 7:    |
 | N: nullptr  | N: nullptr | N: Room 3  | N: nullptr  | N: Windowed | N: nullptr | N: nullptr |
@@ -176,26 +176,6 @@ Detailed Game Map for Directional Pointers:
                                                                                  | E: nullptr |
                                                                                  | W: nullptr |
                                                                                   - - - - - - -
-
-
-
-
-
-
-
-
-
-
-
-
-
- Room
-
-
-
-
-
-
 
 
 How the game play should look:
