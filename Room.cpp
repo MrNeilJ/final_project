@@ -16,6 +16,14 @@ Room::Room(bool status) {
 	lock = status;
 }
 
+Room::Room() {
+	// Sets the locations of the connecting rooms
+	North = nullptr;
+	South = nullptr;
+	East  = nullptr;
+	West  = nullptr;
+}
+
 Room::~Room() {
 	North = nullptr;
 	South = nullptr;

@@ -9,26 +9,51 @@ void Robber::move() {
 	// Ask the user which direction they would like to move
 	menuMaker moveMenu("Which direction would you like to go?",
 					   "North", "South", "East", "West");
+
+	menuMaker examineOrMove("What would you like to do?",
+							"Search Room",
+							"Move to the next room");
 	int direction;
 	bool moved = false;
+	int choice;
+
 	// Loop until a valid response has been chosen
 	do {
-		moveMenu.prompt();
-		direction = moveMenu.getResponse();
-		// Make sure the user selected a value between 1 and 4
-		if (direction >= 1 && direction <= 4) {
-			// Check to see if the direction has a valid room
-			if (!(currRoom->getRoom(direction))) {
-				std::cout << "You turn and face a wall, you cannot walk this direction." << std::endl;
-				std::cout << "Try a different direction" << std::endl;
+		// Give the user the description of the current room
+		currRoom->roomDescription();
+		std::cout << std::endl;
+
+		do {
+			// Allow the user to decide to either examine the room, or proceed to the next room
+			examineOrMove.prompt();
+			choice = examineOrMove.getResponse();
+
+			if (choice < 1 || choice > 2) {
+				std::cout << "Seriously? Pick an option and move on, we don't have time!" << std::endl;
+			}
+		} while(choice < 1 || choice > 2);
+
+		if (choice == 1) {
+			addMoney(currRoom->examine());
+		}
+		else if (choice == 2) {
+			moveMenu.prompt();
+			direction = moveMenu.getResponse();
+			// Make sure the user selected a value between 1 and 4
+			if (direction >= 1 && direction <= 4) {
+				// Check to see if the direction has a valid room
+				if (!(currRoom->getRoom(direction))) {
+					std::cout << "You turn and face a wall, you cannot walk this direction." << std::endl;
+					std::cout << "Try a different direction" << std::endl;
+				}
+				else {
+					moved = true;
+					currRoom = currRoom->moveRoom(direction, lockPick, currRoom);
+				}
 			}
 			else {
-				moved = true;
-				currRoom = currRoom->moveRoom(direction, lockPick, currRoom);
+				std::cout << "That isn't an option, come on...you worry me." << std::endl;
 			}
-		}
-		else {
-			std::cout << "That isn't an option, come on...you worry me." << std::endl;
 		}
 	} while (!moved);
 }
@@ -54,6 +79,10 @@ Robber::Robber() {
 
 Room *Robber::getLocation() {
 	return currRoom;
+}
+
+void Robber::addMoney(int input) {
+	money += input;
 }
 
 

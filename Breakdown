@@ -230,4 +230,24 @@ Which direction would you like to go?
 If the option is a valid room, proceed to the next room.
 
 
+Issues I have run into and needed to modify:
+- Had an issue with implementing the robber class where it would seg fault constantly
+	- Realized the issue was that I called it incorrectly, needed to dynamically create it.
+- Had an issue where rooms where locking the player into them
+	- Realized the issue was that the specific room was kept at all nullptrs, rather than linked to
+	other rooms
+
+Current issues:
+- Need to find a way to properly trigger events
+	- Such as how to have one type of room return an int value for money
+	- While having the managers office return a key to the robber
+
+	- Also need a way to properly trigger the events for the cops to come.
+		- POTENTIAL FIXES:
+			- Migrate a lot of the functionality to the game class. Allow it to have several functions that
+			call pieces of the other classes. (Such as room descriptions) allow it to modify its internal values,
+			then have the game class check if these have been fulfilled using in class methods.
+
+
+
 

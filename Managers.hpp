@@ -6,9 +6,18 @@
 #define FINAL_PROJECT_MANAGERS_HPP
 
 
-class Managers {
+#include "Room.hpp"
 
+class Managers : public Room {
+private:
+	bool searched;
+
+public:
+	Managers();
+	void roomDescription();
+	int examine();
 };
+
 
 
 #endif //FINAL_PROJECT_MANAGERS_HPP

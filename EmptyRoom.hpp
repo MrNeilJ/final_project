@@ -6,7 +6,17 @@
 #define FINAL_PROJECT_EMPTYROOM_HPP
 
 
-class EmptyRoom {
+#include "Room.hpp"
+#include "Cops.hpp"
+
+class EmptyRoom : public Room {
+private:
+	bool searched;
+
+public:
+	EmptyRoom();
+	void roomDescription();
+	int examine(Cops*);
 
 };
 

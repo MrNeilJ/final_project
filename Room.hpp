@@ -14,6 +14,7 @@ private:
 	Room* West;		// Stores a pointer for the Western room
 	bool  lock;		// Stores a boolean value tracking if the door is locked
 public:
+	Room();	// Constructor
 	Room(bool);	// Constructor
 	~Room();							// Deconstructor
 

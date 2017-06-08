@@ -14,6 +14,7 @@ private:
 	int		lockPick;	// Number of picks the robber will have
 	bool  	vaultKey;	// Boolean value to check if the Robber has the main key
 	Room* 	currRoom;	// Pointer to the current room the robber is in.
+	int		money;		// Integer value to store the money the robber makes.
 public:
 	Robber();
 	Robber(Room*);
@@ -21,6 +22,8 @@ public:
 	void startMove();
 	void setLocation(Room*);
 	Room* getLocation();
+
+	void addMoney(int);
 };
 
 

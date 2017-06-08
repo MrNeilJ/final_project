@@ -6,7 +6,9 @@
 #define FINAL_PROJECT_WINDOWED_HPP
 
 
-class Windowed {
+#include "Room.hpp"
+
+class Windowed : public Room {
 
 };
 

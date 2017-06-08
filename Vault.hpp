@@ -6,7 +6,9 @@
 #define FINAL_PROJECT_VAULT_HPP
 
 
-class Vault {
+#include "Room.hpp"
+
+class Vault : public Room {
 
 };
 
