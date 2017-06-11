@@ -35,6 +35,14 @@ void Robber::move() {
 
 		if (choice == 1) {
 			addMoney(currRoom->examine());
+			// Check to see if the robber found a key in that room
+			if (getLocation()->getFoundKey()) {
+				setVaultKey();
+			}
+			// Check to see if the robber decided to leave the game (either through the window or main entrance)
+			if (currRoom->getTimeToLeave()) {
+
+			}
 		}
 		else if (choice == 2) {
 			moveMenu.prompt();
@@ -85,4 +93,11 @@ void Robber::addMoney(int input) {
 	money += input;
 }
 
+void Robber::setVaultKey() {
+	vaultKey = true;
+}
+
+bool Robber::leave() {
+	return currRoom->getTimeToLeave();
+}
 

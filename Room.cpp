@@ -8,20 +8,25 @@
 
 Room::Room(bool status) {
 	// Sets the locations of the connecting rooms
-	North = nullptr;
-	South = nullptr;
-	East  = nullptr;
-	West  = nullptr;
+	North 		= nullptr;
+	South 		= nullptr;
+	East  		= nullptr;
+	West  		= nullptr;
 
-	lock = status;
+	lock 		= status;
+	foundKey 	= false;
 }
 
 Room::Room() {
 	// Sets the locations of the connecting rooms
-	North = nullptr;
-	South = nullptr;
-	East  = nullptr;
-	West  = nullptr;
+	North 		= nullptr;
+	South 		= nullptr;
+	East  		= nullptr;
+	West  		= nullptr;
+
+	foundKey 	= false;
+	lock 		= false;
+	timeToLeave	= false;
 }
 
 Room::~Room() {
@@ -180,6 +185,24 @@ void Room::setCoords(Room *up, Room *down, Room *right, Room *left) {
 	East = right;
 	West = left;
 }
+
+void Room::setFoundKey(bool status) {
+	foundKey = status;
+}
+
+bool Room::getFoundKey() {
+	return foundKey;
+}
+
+void Room::setTimeToLeave(bool status) {
+	timeToLeave = status;
+}
+
+bool Room::getTimeToLeave() {
+	return timeToLeave;
+}
+
+
 
 
 

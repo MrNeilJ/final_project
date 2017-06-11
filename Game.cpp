@@ -8,17 +8,17 @@ Game::Game() {
 // Initialize Room information
 	startRoom	= new Room(false);
 	frontDoor 	= new Room(true);
-	room1		= new Room(false);
-	room2		= new Room(false);
-	room3		= new Room(false);
-	room4		= new Room(false);
-	managers	= new Room(true);
-	room5		= new Room(false);
-	window		= new Room(true);
-	room6		= new Room(false);
-	room7		= new Room(false);
-	room8		= new Room(false);
-	vault		= new Room(true);
+	room1		= new EmptyRoom();
+	room2		= new EmptyRoom();
+	room3		= new EmptyRoom();
+	room4		= new EmptyRoom();
+	managers	= new Managers();
+	room5		= new EmptyRoom();
+	window		= new Windowed();
+	room6		= new EmptyRoom();
+	room7		= new EmptyRoom();
+	room8		= new EmptyRoom();
+	vault		= new Vault();
 
 // Link together the rooms to build the map
 	startRoom->setEast(frontDoor);
@@ -66,7 +66,9 @@ void Game::start() {
 
 	do {
 		burglar->move();
-	} while (burglar->getLocation() != startRoom && readyToLeave != true);
+
+
+	} while (!burglar->leave());
 	std::cout << "You escaped safely, no one noticed" << std::endl;
 
 }

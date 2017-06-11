@@ -29,6 +29,7 @@ int Managers::examine() {
 		std::cout << "After sifting through the drawers you find a key labeled \"VAULT\"." << std::endl;
 		std::cout << "Looks like you scored big buddy, good job." << std::endl;
 		searched = true;
+		setFoundKey(true);
 		return 0;
 		// NEED TO FIND A WAY TO GET THIS TO MODIFY THE ROBBER VALUE
 	}

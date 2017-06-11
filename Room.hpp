@@ -13,6 +13,8 @@ private:
 	Room* East;		// Stores a pointer for the Eastern room
 	Room* West;		// Stores a pointer for the Western room
 	bool  lock;		// Stores a boolean value tracking if the door is locked
+	bool  foundKey; // Stores if a key was found in that specific room
+	bool  timeToLeave;
 public:
 	Room();	// Constructor
 	Room(bool);	// Constructor
@@ -33,10 +35,17 @@ public:
 	void setWest  (Room* left);
 	void setLock  (bool status);
 
+	void setFoundKey (bool status);
+
 	// GETTERS
 	bool getLock  ();
+	bool getFoundKey();
+	void setTimeToLeave(bool status);
 
-};
+	bool getTimeToLeave();
+
+
+	};
 
 
 

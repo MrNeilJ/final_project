@@ -9,7 +9,13 @@
 #include "Room.hpp"
 
 class Windowed : public Room {
+private:
+	bool searched;
 
+public:
+	Windowed();
+	void roomDescription();
+	int examine();
 };
 
 

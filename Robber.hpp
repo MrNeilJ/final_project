@@ -22,8 +22,11 @@ public:
 	void startMove();
 	void setLocation(Room*);
 	Room* getLocation();
+	bool leave();
+
 
 	void addMoney(int);
+	void setVaultKey();
 };
 
 

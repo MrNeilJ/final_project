@@ -249,5 +249,44 @@ Current issues:
 			then have the game class check if these have been fulfilled using in class methods.
 
 
+Design Issues:
+I have been able to layout the entire game.  The connecting rooms work properly.  They give proper input when
+Entering a room and entering giving information about rooms that have already been searched. Though the biggest
+issues I am running into is having a way for information about items and tools transferring from the room information
+back to the robber class, since the room information is being stored directly in the robber class.
+
+What I need to find out:
+Find a way to remiplement everything so that it is all side by side information rather than stored in a class in
+another class.
+
+
+Re thinking game design:
+What occurs per room:
+(1) Check to see if the door is locked
+	(a) If door is locked, go through unlock process
+	(b) Otherwise, proceed into room.
+(2) Display room information
+	(a) Has the room been searched before?
+		(i) If so, display updated room information
+	(b) Otherwise, print out the default room information
+(3) Provide the user with options to do in the room
+	(a) Typically this will be either to search the room, or proceed
+		(i) If they select Search:
+			(a) Update information according (add money,  get key, open window, find lock picks)
+		(ii) If they select Move:
+			(a) Allow the user to decide which direction to move
+				(1) Once they decide, check to see if that room is locked, if it is, try to unlock that door
+
+Thinking about all of this. The simplest way to make all of this work would be to pull the data into the game
+class, doing each step by step process there.  This way we can pull information back and forth from the both the
+rooms and the robber, sharing information between both classes easily, rather than struggling.
+
+Game BreakDown:
+- Call the "CurrentRooms" room description
+- Call the "CurretnRooms" menu prompt
+	- This way we can have it give unique prompts per room (maybe that room doesn't allow a search option)
+
+
+
 
 

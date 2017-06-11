@@ -8,22 +8,26 @@
 
 #include "Room.hpp"
 #include "Robber.hpp"
+#include "EmptyRoom.hpp"
+#include "Managers.hpp"
+#include "Windowed.hpp"
+#include "Vault.hpp"
 
 class Game {
 private:
 	Room* startRoom;
 	Room* frontDoor;
-	Room* room1;
-	Room* room2;
-	Room* room3;
-	Room* room4;
-	Room* managers;
-	Room* room5;
-	Room* window;
-	Room* room6;
-	Room* room7;
-	Room* room8;
-	Room* vault;
+	EmptyRoom* room1;
+	EmptyRoom* room2;
+	EmptyRoom* room3;
+	EmptyRoom* room4;
+	Managers* managers;
+	EmptyRoom* room5;
+	Windowed* window;
+	EmptyRoom* room6;
+	EmptyRoom* room7;
+	EmptyRoom* room8;
+	Vault* vault;
 
 	Robber* burglar;
 
