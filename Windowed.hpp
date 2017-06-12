@@ -15,7 +15,7 @@ private:
 public:
 	Windowed();
 	void roomDescription();
-	int examine();
+	void examine(Robber*, Cops*);
 };
 
 

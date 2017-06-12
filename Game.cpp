@@ -3,11 +3,15 @@
 //
 
 #include "Game.hpp"
+#include "StartRoom.hpp"
+#include "FrontRoom.hpp"
 
 Game::Game() {
+	burglar = new Robber();
+	police = new Cops();
 // Initialize Room information
-	startRoom	= new Room(false);
-	frontDoor 	= new Room(true);
+	startRoom	= new StartRoom();
+	frontDoor 	= new FrontRoom();
 	room1		= new EmptyRoom();
 	room2		= new EmptyRoom();
 	room3		= new EmptyRoom();
@@ -35,11 +39,10 @@ Game::Game() {
 	room8->setCoords(room7, vault,   nullptr, nullptr);
 	vault->setCoords(room8, nullptr, nullptr, nullptr);
 
-	burglar = new Robber();
 
 
-// Set the Robbers initial location
-	burglar->setLocation(startRoom);
+
+
 // Set the initial readyToLeave to False;
 	readyToLeave = false;
 }
@@ -58,17 +61,101 @@ Game::~Game() {
 	room7		= nullptr;
 	room8		= nullptr;
 	vault		= nullptr;
+
+	burglar 	= nullptr;
+	police		= nullptr;
 }
 
 void Game::start() {
-	// Move the burglar to the front door
-	burglar->startMove();
+	// Set the Current Room to the Start Room
+	currRoom = startRoom;
+
+	menuMaker examineOrMove("What would you like to do?",
+							"Search Room",
+							"Move to the next room");
+	int direction;
+	bool moved;
+	int choice;
+
+	// Move the user to the first locked door
 
 	do {
-		burglar->move();
+		moved = false;
+		std::string hasVault = "No";
+		if (burglar->getVaultKey()) {
+			hasVault = "Yes";
+		}
+		// Print out the total number of lockPicks, vaultkeys, and turns till cops come
+		std::cout << "|| # of picks: " << burglar->getNumPicks() << " || Vault Key: " << hasVault;
+		std::cout << " || Rounds 'til Cops arrive: " << police->getRoundsTilCaught() << " || " << std::endl;
+		std::cout << "|| Total Money: " << burglar->getMoney() << "\n" << std::endl;
 
+		// Print out the Current Rooms Description
+		currRoom->roomDescription();
+		std::cout <<  std::endl;
+		do {
 
-	} while (!burglar->leave());
-	std::cout << "You escaped safely, no one noticed" << std::endl;
+			do {
+				// Allow the user to decide to either examine the room, or proceed to the next room
+				examineOrMove.prompt();
+				choice = examineOrMove.getResponse();
 
+				if (choice < 1 || choice > 2) {
+					std::cout << "Seriously? Pick an option and move on, we don't have time!" << std::endl;
+				}
+			} while(choice < 1 || choice > 2);
+
+			if (choice == 1) {
+				currRoom->examine(burglar, police);
+				// Check to see if the robber found a key in that room
+				if (currRoom->getFoundKey()) {
+					burglar->setVaultKey();
+				}
+				// Check to see if the robber decided to leave the game (either through the window or main entrance)
+				if (burglar->getTimeToLeave()) {
+					moved = true;
+				}
+			}
+			else if (choice == 2) {
+				direction = currRoom->moveMenu();
+				// Make sure the user selected a value between 1 and 4
+				if (direction >= 1 && direction <= 4) {
+					// Check to see if the direction has a valid room
+					if (!(currRoom->getRoom(direction))) {
+						std::cout << "You turn and face a wall, you cannot walk this direction." << std::endl;
+						std::cout << "Try a different direction.\n" << std::endl;
+					}
+					else {
+						moved = true;
+						currRoom = currRoom->moveRoom(direction, burglar, currRoom, police);
+					}
+				}
+				else {
+					std::cout << "That isn't an option, come on...you worry me." << std::endl;
+				}
+			}
+		} while (!moved);
+
+		// Check to see if the cops were triggered
+		if(police->wereCopsCalled()) {
+			// If so, subtract 1 for each round active
+			police->roundSubtract();
+		}
+	} while(police->getRoundsTilCaught() > 0 && !burglar->getTimeToLeave());
+
+	if (police->getRoundsTilCaught() < 1) {
+		std::cout << "Game over, the cops caught you, guess i'll have to find a new partner" << std::endl;
+	}
+
+	else if (burglar->getMoney() > 10000) {
+		std::cout << "GOOD JOB MAN! You made it out safely with " << burglar->getMoney() << " dollars!" << std::endl;
+	}
+	else if (burglar->getMoney() > 5000) {
+		std::cout << "Hey, you made it out, and at least you made it out with " << burglar->getMoney() << " dollars." << std::endl;
+	}
+	else {
+		std::cout << "I hate you, you're fired, you only brought back " << burglar->getMoney() << " dolllars..." << std::endl;
+	}
 }
+
+

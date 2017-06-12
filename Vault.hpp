@@ -15,7 +15,7 @@ private:
 public:
 	Vault();
 	void roomDescription();
-	int examine();
+	void examine(Robber*, Cops*);
 };
 
 

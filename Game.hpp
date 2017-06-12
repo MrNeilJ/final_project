@@ -6,17 +6,23 @@
 #define FINAL_PROJECT_GAME_HPP
 
 
-#include "Room.hpp"
 #include "Robber.hpp"
+#include "Room.hpp"
+#include "Cops.hpp"
 #include "EmptyRoom.hpp"
 #include "Managers.hpp"
 #include "Windowed.hpp"
 #include "Vault.hpp"
+#include "StartRoom.hpp"
+#include "FrontRoom.hpp"
 
 class Game {
 private:
-	Room* startRoom;
-	Room* frontDoor;
+	Robber* burglar;
+	Cops* police;
+
+	StartRoom* startRoom;
+	FrontRoom* frontDoor;
 	EmptyRoom* room1;
 	EmptyRoom* room2;
 	EmptyRoom* room3;
@@ -29,7 +35,9 @@ private:
 	EmptyRoom* room8;
 	Vault* vault;
 
-	Robber* burglar;
+
+
+	Room* currRoom;
 
 	bool readyToLeave;
 

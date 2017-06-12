@@ -4,7 +4,6 @@
 
 #ifndef FINAL_PROJECT_ROBBER_HPP
 #define FINAL_PROJECT_ROBBER_HPP
-#include "Room.hpp"
 #include "menuMaker.hpp"
 #include <iostream>
 
@@ -13,20 +12,25 @@ class Robber {
 private:
 	int		lockPick;	// Number of picks the robber will have
 	bool  	vaultKey;	// Boolean value to check if the Robber has the main key
-	Room* 	currRoom;	// Pointer to the current room the robber is in.
 	int		money;		// Integer value to store the money the robber makes.
+	bool	timeToLeave;
 public:
 	Robber();
-	Robber(Room*);
-	void move();
+	/*void move();
 	void startMove();
-	void setLocation(Room*);
-	Room* getLocation();
-	bool leave();
+	bool leave();*/
 
 
 	void addMoney(int);
 	void setVaultKey();
+	bool getVaultKey();
+	int getNumPicks();
+	void subtractNumPicks();
+	int getMoney();
+
+	bool getTimeToLeave();
+	void setTimetoLeave(bool);
+	void addPicks(int);
 };
 
 

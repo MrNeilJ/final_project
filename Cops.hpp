@@ -7,7 +7,17 @@
 
 
 class Cops {
+private:
+	int triggerChance;
+	int roundsTilCaught;
+	bool copsCalled;
+public:
+	Cops();
+	void chanceIncrease(int chance);
 
+	int getRoundsTilCaught();
+	void roundSubtract();
+	bool wereCopsCalled();
 };
 
 

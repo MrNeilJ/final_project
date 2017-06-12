@@ -16,7 +16,7 @@ private:
 public:
 	EmptyRoom();
 	void roomDescription();
-	int examine(Cops*);
+	void examine(Robber*, Cops*);
 
 };
 

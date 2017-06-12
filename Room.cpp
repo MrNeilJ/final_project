@@ -39,8 +39,8 @@ Room::~Room() {
 
 
 
-int Room::examine() {
-	return 0;
+void Room::examine(Robber*, Cops*) {
+	return;
 }
 
 bool Room::getRoom(int direction) {
@@ -74,7 +74,7 @@ bool Room::getRoom(int direction) {
 	return  isRoom;
 }
 
-Room* Room::moveRoom(int direction, int &numPicks, Room* currentRoom) {
+Room* Room::moveRoom(int direction, Robber* burglar, Room* currentRoom, Cops* police) {
 	Room* tempDir;
 	int doorDecision;
 	menuMaker doorChoice(	"What would you like to do?",
@@ -93,7 +93,7 @@ Room* Room::moveRoom(int direction, int &numPicks, Room* currentRoom) {
 	}
 
 	if (tempDir->getLock()) {
-		std::cout << "You approach the door and jiggle the handle, the door is locked..." << std::endl;
+		std::cout << "You approach the door and jiggle the handle, the door is locked...\n" << std::endl;
 		do {
 			doorChoice.prompt();
 			doorDecision = doorChoice.getResponse();
@@ -101,18 +101,20 @@ Room* Room::moveRoom(int direction, int &numPicks, Room* currentRoom) {
 			// User chose to try to pick the door lock
 			if (doorDecision == 1) {
 				// Check to see if you have any available picks
-				if (numPicks > 0) {
+				if (burglar->getNumPicks() > 0) {
 					// roll a random # between 1 and 100
 					int randNum = (rand() & 100) + 1;
 					// 70% success chance on picking the door lock
 					if (randNum > 45) {
-						std::cout << "You hear the last tumbler click in place, the door opens" << std::endl;
+						std::cout << "You hear the last tumbler click in place, the door opens\n" << std::endl;
 						tempDir->setLock(false);
+						police->chanceIncrease(2);
 						return tempDir;
 					}
 					else {
 						std::cout << "Your pick snaps in half, the sound echoes down the hall." << std::endl;
-						numPicks--;
+						police->chanceIncrease(5);
+						burglar->subtractNumPicks();
 					}
 				}
 				else {
@@ -120,15 +122,15 @@ Room* Room::moveRoom(int direction, int &numPicks, Room* currentRoom) {
 				}
 			}
 			else if (doorDecision == 2) {
-				std::cout << "You turn around and go back the way you came" << std::endl;
+				std::cout << "You turn around and go back the way you came\n" << std::endl;
 				return currentRoom;
 			}
 			else {
-				std::cout << "Seriously? How did you get in here? Try again." << std::endl;
+				std::cout << "Seriously? How did you get in here? Try again.\n" << std::endl;
 			}
 
-			if (numPicks == 0) {
-				std::cout << "That was your last pick" << std::endl;
+			if (burglar->getNumPicks() == 0) {
+				std::cout << "That was your last pick...\n" << std::endl;
 			}
 		} while (tempDir->getLock());
 	}
@@ -200,6 +202,25 @@ void Room::setTimeToLeave(bool status) {
 
 bool Room::getTimeToLeave() {
 	return timeToLeave;
+}
+
+
+int Room::moveMenu() {
+	menuMaker moveMenu("Which direction would you like to go?",
+					   "North", "South", "East", "West");
+
+	do {
+		moveMenu.prompt();
+		if (moveMenu.getResponse() == 1 ||
+				moveMenu.getResponse() == 2 ||
+				moveMenu.getResponse() == 3 ||
+				moveMenu.getResponse() == 4) {
+			return moveMenu.getResponse();
+		}
+		else {
+			std::cout << "Did not catch that response, try again";
+		}
+	} while(moveMenu.getResponse() < 1 || moveMenu.getResponse() > 4);
 }
 
 

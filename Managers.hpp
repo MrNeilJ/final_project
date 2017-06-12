@@ -15,7 +15,7 @@ private:
 public:
 	Managers();
 	void roomDescription();
-	int examine();
+	void examine(Robber*, Cops*);
 };
 
 

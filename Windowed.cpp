@@ -22,13 +22,15 @@ void Windowed::roomDescription() {
 	}
 }
 
-int Windowed::examine() {
-	searched = true;
-	int randNum = (rand() % 500) + 1;
+void Windowed::examine(Robber* burglar, Cops* police) {
+	int randNum = (rand() % 6) + 1;
 
-	std::cout << "You search through the closet and find" << randNum << " dollars" << std::endl;
-	std::cout << "You then look up and find an open window, you could probably fit, but you" << std::endl;
-	std::cout << "be able to take much with you...easy escape though." << std::endl;
+	if(!searched){
+		std::cout << "You search through the closet and find" << randNum << " lock picks" << std::endl;
+		std::cout << "You then look up and find an open window, you could probably fit, but you" << std::endl;
+		std::cout << "be able to take much with you...easy escape though." << std::endl;
+		searched = true;
+	}
 
 	menuMaker escapeOption("Do you want to escape now?", "Yes", "No");
 	int escapeChoice;
@@ -38,8 +40,14 @@ int Windowed::examine() {
 		escapeChoice = escapeOption.getResponse();
 
 		if (escapeChoice == 1) {
-			setTimeToLeave(true);
+			menuMaker areYouSure("Are you sure? You'll lose half your money squeezing out this window!",
+								"Yes, lets go already!", "No, we will find another way");
+			areYouSure.prompt();
+			if(areYouSure.getResponse() == 1) {
+				burglar->setTimetoLeave(true);
+			}
+
 		}
-	} while(escapeChoice < 1 || escapeChoice > 2);
+	} while(escapeChoice < 1 && escapeChoice > 2);
 
 }

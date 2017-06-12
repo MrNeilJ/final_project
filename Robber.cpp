@@ -5,7 +5,7 @@
 #include "Robber.hpp"
 
 
-void Robber::move() {
+/*void Robber::move() {
 	// Ask the user which direction they would like to move
 	menuMaker moveMenu("Which direction would you like to go?",
 					   "North", "South", "East", "West");
@@ -64,30 +64,16 @@ void Robber::move() {
 			}
 		}
 	} while (!moved);
-}
+}*/
 
-void Robber::startMove() {
-	currRoom = currRoom->moveRoom(3, lockPick, currRoom);
-}
 
-void Robber::setLocation(Room* location) {
-	currRoom = location;
-}
 
-Robber::Robber(Room* location) {
-	lockPick = 10;
-	currRoom = location;
-	vaultKey = false;
-}
 Robber::Robber() {
 	lockPick = 10;
-	currRoom = nullptr;
 	vaultKey = false;
+	timeToLeave = false;
 }
 
-Room *Robber::getLocation() {
-	return currRoom;
-}
 
 void Robber::addMoney(int input) {
 	money += input;
@@ -97,7 +83,38 @@ void Robber::setVaultKey() {
 	vaultKey = true;
 }
 
-bool Robber::leave() {
-	return currRoom->getTimeToLeave();
+
+int Robber::getNumPicks() {
+	return lockPick;
 }
+
+void Robber::subtractNumPicks() {
+	lockPick--;
+}
+
+bool Robber::getVaultKey() {
+	return vaultKey;
+}
+
+int Robber::getMoney() {
+	return money;
+}
+
+bool Robber::getTimeToLeave() {
+	return timeToLeave;
+}
+
+void Robber::setTimetoLeave(bool status) {
+	timeToLeave = status;
+}
+
+void Robber::addPicks(int amount) {
+	lockPick+=amount;
+	if (lockPick > 10) {
+		std::cout << "You cannot carry that many lock picks, leave some behind" << std::endl;
+		lockPick = 10;
+	}
+}
+
+
 

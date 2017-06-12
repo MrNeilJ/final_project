@@ -6,6 +6,9 @@
 #define FINAL_PROJECT_ROOM_HPP
 
 
+#include "Cops.hpp"
+#include "Robber.hpp"
+
 class Room {
 private:
 	Room* North; 	// Stores a pointer for the Northern room
@@ -21,9 +24,9 @@ public:
 	~Room();							// Deconstructor
 
 	bool getRoom(int direction); 	// Returns if the room in that direction is valid
-	virtual Room* moveRoom(int direction, int &numPicks, Room* currentRoom);	// Returns the pointer of the room in that direction
+	virtual Room* moveRoom(int direction, Robber* burglar, Room* currentRoom, Cops* police);	// Returns the pointer of the room in that direction
 
-	virtual int examine();			// Searches the room for valuables (varies per room type)
+	virtual void examine(Robber*, Cops*);			// Searches the room for valuables (varies per room type)
 	virtual void enterRoom(int direction, int &numPicks);		// Triggers a menu that is dependent on door lock status
 	virtual void roomDescription();	// Prints to the screen information about the room
 
@@ -36,6 +39,7 @@ public:
 	void setLock  (bool status);
 
 	void setFoundKey (bool status);
+	virtual int moveMenu();
 
 	// GETTERS
 	bool getLock  ();

@@ -10,35 +10,29 @@ void EmptyRoom::roomDescription() {
 			  << 	" of interest in here." << std::endl;
 }
 
-int EmptyRoom::examine(Cops* police) {
+void EmptyRoom::examine(Robber* burglar, Cops* police) {
 	int randNum = (rand() % 10000) + 1;
 	int copChance = (rand() % 10) + 1;
 
 	if (searched) {
 		std::cout << "You have already searched this room, there isn't anything left!" << std::endl;
 	}
-	else if (randNum > 9000) {
-		std::cout << "You pushed a painting to the side and found a secret safe," << std::endl;
-		std::cout << "containing " << randNum << " dollars, awesome!" << std::endl;
 
-		if (copChance > 5) {
-			std::cout << "You immediately drop the painting, hopefully no one heard that" << std::endl;
-			// ADD IN POLICE FUNCTIONALITY LATER
-		}
-		searched = true;
-		return randNum;
-	}
-	else if (randNum > 8000) {
+	else if (randNum > 7000) {
+		int randPicks = (rand() + 5) + 1;
 		std::cout << "You pull the potted plant out, finding a time capsule," << std::endl;
-		std::cout << "it contained " << randNum << "dollars, good job!" << std::endl;
+		std::cout << "it contained " << randPicks<< "Lock Picks! How Weird!" << std::endl;
+
+		burglar->addPicks(randPicks);
 
 		if (copChance > 5) {
 			std::cout << "As you put the plant back the vase shatters, the sound" << std::endl;
 			std::cout << "echoes down the hallway." << std::endl;
 			// ADD IN POLICE FUNCTIONALITY LATER
+			police->chanceIncrease(5);
 		}
 		searched = true;
-		return randNum;
+		burglar->addMoney(randNum);
 	}
 	else if (randNum > 6000) {
 		std::cout << "You pull open a drawer, finding someones wallet, it" << std::endl;
@@ -48,23 +42,22 @@ int EmptyRoom::examine(Cops* police) {
 			std::cout << "You pull the drawer open too far, it crashes to the floor." << std::endl;
 			std::cout << "Not too get at being quiet are ya...?" << std::endl;
 			// ADD IN POLICE FUNCTIONALITY LATER
+			police->chanceIncrease(5);
 		}
 		searched = true;
-		return  randNum;
+		burglar->addMoney(randNum);
 	}
 	else if (randNum > 5000) {
 		std::cout << "You see something shining underneath a desk, upon examination" << std::endl;
 		std::cout << "it appears to be a diamond, probably worth " << randNum << " dollars!" << std::endl;
 		searched = true;
-		return randNum;
+		burglar->addMoney(randNum);
 	}
 	else {
 		std::cout << "You search the room, but find nothing of interest..." << std::endl;
 		searched = true;
-		return 0;
+		burglar->addMoney(0);
 	}
-
-	return 0;
 
 }
 
