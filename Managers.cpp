@@ -1,16 +1,32 @@
-//
-// Created by Neil on 6/7/2017.
-//
+/**************************************************************
+ * Author: Neil Johnson
+ *
+ * Date: 6.13.2017
+ *
+ * Description: This is the implementation file for the Managers
+ * Room Class.  In this section we provide the information
+ * necessary to build the room.  It allows us to print the
+ * descriptions of the room,  and examine the items in it.
+ **************************************************************/
 
 #include <iostream>
 #include "Managers.hpp"
 
+/**************************************************************
+ * 						Managers::Managers()
+ * 	Description: This sets the value of the room to not being
+ * 	searched. In addition it also sets the door to be locked.
+ **************************************************************/
 Managers::Managers() {
 	setLock(true);
 	searched = false;
 
 }
 
+/**************************************************************
+ * 						Managers::roomDescription()
+ * 	Description: This prints out the description of the room.
+ **************************************************************/
 void Managers::roomDescription() {
 	if (searched) {
 		std::cout << "You pass the sign labeled \"Managers Office\" again. Papers now scattered" << std::endl;
@@ -22,6 +38,12 @@ void Managers::roomDescription() {
 	}
 }
 
+/**************************************************************
+ * 						Managers::examine()
+ * 	Description: This method allows us to search the room for
+ * 	objects.  In this room we allow the user to find the
+ * 	main item, the vault key.
+ **************************************************************/
 void Managers::examine(Robber* burglar, Cops* police) {
 	if (searched) {
 		std::cout << "You find nothing of interest except some basic paperwork" << std::endl;
@@ -31,6 +53,5 @@ void Managers::examine(Robber* burglar, Cops* police) {
 		std::cout << "Looks like you scored big buddy, good job." << std::endl;
 		searched = true;
 		burglar->setVaultKey();
-		// NEED TO FIND A WAY TO GET THIS TO MODIFY THE ROBBER VALUE
 	}
 }

@@ -10,7 +10,7 @@ int main() {
 	std::cout << "Your goal in this game is to steal as much money as possible from the bank";
 	std::cout << " before the police arrive.  If you trigger the police you will have ten turns";
 	std::cout << " to escape before you are arrested. Look around, find keys, steal money and";
-	std::cout << " most importantly, find a way to escape!\n" << std::endl;
+	std::cout << " most importantly, find a way to escape!" << std::endl;
 
 
 

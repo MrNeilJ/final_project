@@ -1,6 +1,13 @@
-//
-// Created by Neil on 6/7/2017.
-//
+/**************************************************************
+ * Author: Neil Johnson
+ *
+ * Date: 6.13.2017
+ *
+ * Description: This is the header file for the Managers
+ * Room Class.  In this section we provide the information
+ * necessary to build the room.  It allows us to print the
+ * descriptions of the room,  and examine the items in it.
+ **************************************************************/
 
 #ifndef FINAL_PROJECT_MANAGERS_HPP
 #define FINAL_PROJECT_MANAGERS_HPP
@@ -10,12 +17,12 @@
 
 class Managers : public Room {
 private:
-	bool searched;
+	bool searched;                   // Boolean used to save if the room has been searched 
 
 public:
-	Managers();
-	void roomDescription();
-	void examine(Robber*, Cops*);
+	Managers();                      // Constructor
+	void roomDescription();          // Returns the rooms description information
+	void examine(Robber*, Cops*);    // Allows the user to search the room for items.
 };
 
 

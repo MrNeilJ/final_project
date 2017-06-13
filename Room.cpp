@@ -1,11 +1,22 @@
-//
-// Created by Neil on 6/6/2017.
-//
-
+/**************************************************************
+ * Author: Neil Johnson
+ *
+ * Date: 6.13.2017
+ *
+ * Description: This is the implementation file for the
+ * Room Class.  In this section we provide the information
+ * necessary to build the room.  We can set the coordinates of
+ * the nearby rooms, as well as create the ability for the user
+ * to switch room to room.
+ **************************************************************/
 #include <iostream>
 #include "Room.hpp"
-#include "menuMaker.hpp"
 
+/**************************************************************
+ * 						Room::Room()
+ * 	Description: This is one of the constructors for the room
+ * 	class.
+ **************************************************************/
 Room::Room(bool status) {
 	// Sets the locations of the connecting rooms
 	North 		= nullptr;
@@ -17,6 +28,11 @@ Room::Room(bool status) {
 	foundKey 	= false;
 }
 
+/**************************************************************
+ * 						Room::Room()
+ * 	Description: This is one of the constructors for the room
+ * 	class.
+ **************************************************************/
 Room::Room() {
 	// Sets the locations of the connecting rooms
 	North 		= nullptr;
@@ -29,6 +45,11 @@ Room::Room() {
 	timeToLeave	= false;
 }
 
+/**************************************************************
+ * 						Room::Room()
+ * 	Description: Deconstructor for the Room class. This will
+ * 	set that specifics room value to all nullptrs.
+ **************************************************************/
 Room::~Room() {
 	North = nullptr;
 	South = nullptr;
@@ -37,12 +58,12 @@ Room::~Room() {
 
 }
 
-
-
-void Room::examine(Robber*, Cops*) {
-	return;
-}
-
+/**************************************************************
+ * 						Room::getRoom()
+ * 	Description: This method checks to see if the room in a
+ * 	specific direction is a valid room, or if it is pointing to
+ * 	nothing (such as a wall).
+ **************************************************************/
 bool Room::getRoom(int direction) {
 	bool isRoom = true;
 	// Check to see if there is a room that direction
@@ -74,6 +95,14 @@ bool Room::getRoom(int direction) {
 	return  isRoom;
 }
 
+/**************************************************************
+ * 						Room::moveRoom()
+ * 	Description: This creates the movement ability in the Room
+ * 	class.  It checks to see if the room is an official room.
+ * 	If it is, it will check to see if that door is locked.  If it
+ * 	is locked it will go through the lock mini game.  If it isn't
+ * 	then the pointer value for the next room will be returned.
+ **************************************************************/
 Room* Room::moveRoom(int direction, Robber* burglar, Room* currentRoom, Cops* police) {
 	Room* tempDir;
 	int doorDecision;
@@ -106,7 +135,7 @@ Room* Room::moveRoom(int direction, Robber* burglar, Room* currentRoom, Cops* po
 					int randNum = (rand() & 100) + 1;
 					// 70% success chance on picking the door lock
 					if (randNum > 45) {
-						std::cout << "You hear the last tumbler click in place, the door opens\n" << std::endl;
+						std::cout << "You hear the last tumbler click in place, the door opens.\n" << std::endl;
 						tempDir->setLock(false);
 						police->chanceIncrease(2);
 						return tempDir;
@@ -140,6 +169,7 @@ Room* Room::moveRoom(int direction, Robber* burglar, Room* currentRoom, Cops* po
 	return currentRoom;
 }
 
+/*
 void Room::enterRoom(int direction, int &numPicks) {
 	menuMaker doorChoice(	"What would you like to do?",
 							"Pick Lock", "Go back the way you came");
@@ -150,37 +180,53 @@ void Room::enterRoom(int direction, int &numPicks) {
 	}
 
 }
-
-void Room::roomDescription() {
-
-}
+*/
 
 // SETTERS
+/**************************************************************
+ * 						Room::setNorth()
+ * 	Description: Sets the North pointer value for the room.
+ **************************************************************/
 void Room::setNorth(Room *up) {
 	North = up;
 }
 
+/**************************************************************
+ * 						Room::setSouth()
+ * 	Description: Sets the South pointer value for the room.
+ **************************************************************/
 void Room::setSouth(Room *down) {
 	South = down;
-
 }
 
+/**************************************************************
+ * 						Room::setEast()
+ * 	Description: Sets the East pointer value for the room.
+ **************************************************************/
 void Room::setEast(Room *right) {
 	East = right;
 }
 
+/**************************************************************
+ * 						Room::setWest()
+ * 	Description: Sets the West pointer value for the room.
+ **************************************************************/
 void Room::setWest(Room *left) {
 	West = left;
 }
 
+/**************************************************************
+ * 						Room::setLock()
+ * 	Description: Sets the Lock value to either locked or not.
+ **************************************************************/
 void Room::setLock(bool status) {
 	lock = status;
 }
 
-bool Room::getLock() {
-	return lock;
-}
-
+/**************************************************************
+ * 						Room::setCoords()
+ * 	Description: Sets all the Direction Pointers at once
+ **************************************************************/
 void Room::setCoords(Room *up, Room *down, Room *right, Room *left) {
 	North = up;
 	South = down;
@@ -188,23 +234,54 @@ void Room::setCoords(Room *up, Room *down, Room *right, Room *left) {
 	West = left;
 }
 
+/**************************************************************
+ * 						Room::setFoundKey()
+ * 	Description: Sets the value of if the user has found the
+ * 	key or not.
+ **************************************************************/
 void Room::setFoundKey(bool status) {
 	foundKey = status;
 }
 
-bool Room::getFoundKey() {
-	return foundKey;
-}
-
+/**************************************************************
+ * 						Room::setTimeToLeave()
+ * 	Description: Sets if the user has selected to leave the game
+ **************************************************************/
 void Room::setTimeToLeave(bool status) {
 	timeToLeave = status;
 }
 
+
+// GETTERS
+/**************************************************************
+ * 						Room::getLock()
+ * 	Description: Returns the lock value.
+ **************************************************************/
+bool Room::getLock() {
+	return lock;
+}
+
+/**************************************************************
+ * 						Room::getFoundKey()
+ * 	Description: Returns if the user has found the key or not
+ **************************************************************/
+bool Room::getFoundKey() {
+	return foundKey;
+}
+
+/**************************************************************
+ * 						Room::getTimeToLeave()
+ * 	Description: Returns if the user has found decided to leave.
+ **************************************************************/
 bool Room::getTimeToLeave() {
 	return timeToLeave;
 }
 
-
+/**************************************************************
+ * 						Room::moveMenu()
+ * 	Description: Prints out an easy to understand menu for
+ * 	how to navigate through the rooms.
+ **************************************************************/
 int Room::moveMenu() {
 	menuMaker moveMenu("Which direction would you like to go?",
 					   "North", "South", "East", "West");

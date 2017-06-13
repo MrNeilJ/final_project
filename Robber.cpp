@@ -72,6 +72,7 @@ Robber::Robber() {
 	lockPick = 10;
 	vaultKey = false;
 	timeToLeave = false;
+	money = 0;
 }
 
 

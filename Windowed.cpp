@@ -1,16 +1,32 @@
-//
-// Created by Neil on 6/7/2017.
-//
+/**************************************************************
+ * Author: Neil Johnson
+ *
+ * Date: 6.13.2017
+ *
+ * Description: This is the implementation file for the Window
+ * Room Class.  In this section we provide the information
+ * necessary to build the room.  It allows us to print the
+ * descriptions of the room, examine the items in it, and
+ * even triggers events that allow the user to leave.
+ **************************************************************/
 
 #include <iostream>
 #include "Windowed.hpp"
-#include "menuMaker.hpp"
 
+/**************************************************************
+ * 						Windowed::Windowed()
+ * 	Description: This sets the value of the room to not being
+ * 	searched. Also sets the lock value to true.
+ **************************************************************/
 Windowed::Windowed() {
 	searched = false;
 	setLock(true);
 }
 
+/**************************************************************
+ * 						Windowed::roomDescription()
+ * 	Description: This prints out the description of the room.
+ **************************************************************/
 void Windowed::roomDescription() {
 	if (searched) {
 		std::cout << "You enter the Janitors Closet again. You feel the breeze of the open window." << std::endl;
@@ -22,6 +38,12 @@ void Windowed::roomDescription() {
 	}
 }
 
+/**************************************************************
+ * 						Windowed::examine()
+ * 	Description: This method allows us to search the room for
+ * 	objects.  In this the user finds an escape route. They are
+ * 	then given the option if they would like to escape.
+ **************************************************************/
 void Windowed::examine(Robber* burglar, Cops* police) {
 	int randNum = (rand() % 6) + 1;
 

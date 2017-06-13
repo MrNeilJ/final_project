@@ -1,11 +1,24 @@
-//
-// Created by Neil on 6/6/2017.
-//
+/**************************************************************
+ * Author: Neil Johnson
+ *
+ * Date: 6.13.2017
+ *
+ * Description: This is the implementation file for the
+ * Game Class.  This builds 90% of the functionality of the application
+ * In here we build all of the rooms, connect them together, and
+ * begin the game process.
+ **************************************************************/
 
 #include "Game.hpp"
 #include "StartRoom.hpp"
 #include "FrontRoom.hpp"
 
+/**************************************************************
+ * 						Game::Game()
+ * 	Description: This is the constructor of the Game class.  It
+ * 	will implement all of the room files, connect them, and
+ * 	create the robber and cop classes for the game functionality.
+ **************************************************************/
 Game::Game() {
 	burglar = new Robber();
 	police = new Cops();
@@ -39,14 +52,15 @@ Game::Game() {
 	room8->setCoords(room7, vault,   nullptr, nullptr);
 	vault->setCoords(room8, nullptr, nullptr, nullptr);
 
-
-
-
-
 // Set the initial readyToLeave to False;
 	readyToLeave = false;
 }
 
+/**************************************************************
+ * 						Game::~Game()
+ * 	Description: This is the deconstructor class, It will set
+ * 	all the newly created pointers to nullptr values.
+ **************************************************************/
 Game::~Game() {
 	startRoom	= nullptr;
 	frontDoor 	= nullptr;
@@ -66,6 +80,13 @@ Game::~Game() {
 	police		= nullptr;
 }
 
+/**************************************************************
+ * 						Game::Start()
+ * 	Description: This is what creates the game functionality.
+ * 	It Moves the user room to room, interacting with the functions
+ * 	of each room.  Allowing the user to unlock doors, steal items,
+ * 	and even escape when they are ready.
+ **************************************************************/
 void Game::start() {
 	// Set the Current Room to the Start Room
 	currRoom = startRoom;

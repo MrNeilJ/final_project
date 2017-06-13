@@ -1,6 +1,13 @@
-//
-// Created by Neil on 6/6/2017.
-//
+/**************************************************************
+ * Author: Neil Johnson
+ *
+ * Date: 6.13.2017
+ *
+ * Description: This is the header file for the
+ * Game Class.  This builds 90% of the functionality of the application
+ * In here we build all of the rooms, connect them together, and
+ * begin the game process.
+ **************************************************************/
 
 #ifndef FINAL_PROJECT_GAME_HPP
 #define FINAL_PROJECT_GAME_HPP
@@ -35,16 +42,13 @@ private:
 	EmptyRoom* room8;
 	Vault* vault;
 
-
-
 	Room* currRoom;
-
 	bool readyToLeave;
 
 public:
-	Game();
-	~Game();
-	void start();
+	Game();			// Constructor
+	~Game();		// Destructor
+	void start();	// Begins the Game play
 };
 
 
