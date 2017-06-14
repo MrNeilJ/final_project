@@ -141,13 +141,13 @@ Room* Room::moveRoom(int direction, Robber* burglar, Room* currentRoom, Cops* po
 						return tempDir;
 					}
 					else {
-						std::cout << "Your pick snaps in half, the sound echoes down the hall." << std::endl;
+						std::cout << "Your pick snaps in half, the sound echoes down the hall.\n" << std::endl;
 						police->chanceIncrease(5);
 						burglar->subtractNumPicks();
 					}
 				}
 				else {
-					std::cout << "You do not have any picks, you cannot enter this room" << std::endl;
+					std::cout << "You do not have any picks, you cannot enter this room\n" << std::endl;
 				}
 			}
 			else if (doorDecision == 2) {
@@ -298,6 +298,13 @@ int Room::moveMenu() {
 			std::cout << "Did not catch that response, try again";
 		}
 	} while(moveMenu.getResponse() < 1 || moveMenu.getResponse() > 4);
+}
+
+void Room::cleanDirections() {
+	North = NULL;
+	South = NULL;
+	East = NULL;
+	West = NULL;
 }
 
 

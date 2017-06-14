@@ -38,7 +38,7 @@ void EmptyRoom::examine(Robber* burglar, Cops* police) {
 	}
 
 	else if (randNum > 7000) {
-		int randPicks = (rand() + 5) + 1;
+		int randPicks = (rand() % 5) + 1;
 		std::cout << "You pull the potted plant out, finding a time capsule," << std::endl;
 		std::cout << "it contained " << randPicks<< " Lock Picks! How Weird!" << std::endl;
 
@@ -91,6 +91,3 @@ EmptyRoom::EmptyRoom() {
 	searched = false;
 
 }
-
-
-

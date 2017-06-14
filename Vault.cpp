@@ -77,7 +77,6 @@ void Vault::examine(Robber* burglar, Cops* police) {
 				else if (vaultChoice == 3) {
 					std::cout << "You approach the shining idol in the back, and in a moment of Indiana Jones-esque" << std::endl;
 					std::cout << "fashion, you swap the idol with a gold bar." << std::endl;
-					std::cout << "\nSirens begin to wail, looks like you messed up bud.\n" << std::endl;
 
 					searched = true;
 					police->chanceIncrease(100);
@@ -92,5 +91,8 @@ void Vault::examine(Robber* burglar, Cops* police) {
 				}
 			} while (vaultChoice < 1 || vaultChoice > 4);
 		}
+	}
+	else {
+		std::cout << "You attempt to push the silver door open, but it wont budge.  Better go find a key.\n" << std::endl;
 	}
 }

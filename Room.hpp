@@ -55,6 +55,9 @@ public:
 	bool getFoundKey();		// Returns the status of the key
 
 	bool getTimeToLeave();	// Returns if the user has decided to quit
+
+	// CLEANERS
+	void cleanDirections();	// Deletes all pointers
 	};
 
 #endif //FINAL_PROJECT_ROOM_HPP

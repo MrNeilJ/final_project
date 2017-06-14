@@ -38,5 +38,5 @@ void StartRoom::roomDescription() {
  * 	about the outside of the bank.
  **************************************************************/
 void StartRoom::examine(Robber *burglar, Cops *police) {
-	std::cout << "You look around cautiously, the coast is clear. Come on man, get inside already!\n" << std::endl;
+	std::cout << "You look around cautiously, the coast is clear. Come on man, get inside already!" << std::endl;
 }

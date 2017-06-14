@@ -40,7 +40,7 @@ void Cops::chanceIncrease(int chance) {
 	if (randNum < triggerChance) {
 		copsCalled = true;
 		std::cout << "You hear sirens wailing in the distance, looks like you've been caught bud..." << std::endl;
-		std::cout << "Grab what you can and get out ASAP!" << std::endl;
+		std::cout << "Grab what you can and get out ASAP!\n" << std::endl;
 	}
 }
 

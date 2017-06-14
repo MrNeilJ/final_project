@@ -5,12 +5,14 @@
 #ifndef FINAL_PROJECT_ROBBER_HPP
 #define FINAL_PROJECT_ROBBER_HPP
 #include "menuMaker.hpp"
+#include "Pick.hpp"
 #include <iostream>
+#include <vector>
 
 
 class Robber {
 private:
-	int		lockPick;	// Number of picks the robber will have
+	std::vector<Pick>backpack; // Vector to hold lock picks
 	bool  	vaultKey;	// Boolean value to check if the Robber has the main key
 	int		money;		// Integer value to store the money the robber makes.
 	bool	timeToLeave;

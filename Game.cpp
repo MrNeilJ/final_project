@@ -62,22 +62,56 @@ Game::Game() {
  * 	all the newly created pointers to nullptr values.
  **************************************************************/
 Game::~Game() {
-	startRoom	= nullptr;
-	frontDoor 	= nullptr;
-	room1		= nullptr;
-	room2		= nullptr;
-	room3		= nullptr;
-	room4		= nullptr;
-	managers	= nullptr;
-	room5		= nullptr;
-	window		= nullptr;
-	room6		= nullptr;
-	room7		= nullptr;
-	room8		= nullptr;
-	vault		= nullptr;
+	startRoom->cleanDirections();
+	frontDoor->cleanDirections();
+	room1->cleanDirections();
+	room2->cleanDirections();
+	room3->cleanDirections();
+	room4->cleanDirections();
+	managers->cleanDirections();
+	room5->cleanDirections();
+	window->cleanDirections();
+	room6->cleanDirections();
+	room7->cleanDirections();
+	room8->cleanDirections();
+	vault->cleanDirections();
 
-	burglar 	= nullptr;
-	police		= nullptr;
+	delete startRoom;
+	delete frontDoor;
+	delete room1;
+	delete room2;
+	delete room3;
+	delete room4;
+	delete managers;
+	delete room5;
+	delete window;
+	delete room6;
+	delete room7;
+	delete room8;
+	delete vault;
+
+	delete burglar;
+	delete police;
+
+	burglar 	= NULL;
+	police		= NULL;
+
+	startRoom	= NULL;
+	frontDoor 	= NULL;
+	room1		= NULL;
+	room2		= NULL;
+	room3		= NULL;
+	room4		= NULL;
+	managers	= NULL;
+	room5		= NULL;
+	window		= NULL;
+	room6		= NULL;
+	room7		= NULL;
+	room8		= NULL;
+	vault		= NULL;
+
+	burglar 	= NULL;
+	police		= NULL;
 }
 
 /**************************************************************
@@ -91,7 +125,7 @@ void Game::start() {
 	// Set the Current Room to the Start Room
 	currRoom = startRoom;
 
-	menuMaker examineOrMove("What would you like to do?",
+	menuMaker examineOrMove("\nWhat would you like to do?",
 							"Search Room",
 							"Move to the next room");
 	int direction;
@@ -106,14 +140,13 @@ void Game::start() {
 		if (burglar->getVaultKey()) {
 			hasVault = "Yes";
 		}
-		// Print out the total number of lockPicks, vaultkeys, and turns till cops come
-		std::cout << "|| # of picks: " << burglar->getNumPicks() << " || Vault Key: " << hasVault;
-		std::cout << " || Rounds 'til Cops arrive: " << police->getRoundsTilCaught() << " || " << std::endl;
-		std::cout << "|| Total Money: " << burglar->getMoney() << "\n" << std::endl;
+		// Print out the total number of lockPicks, vaultkeys, and turns till cops come                               
+		std::cout << "|| # of picks: " << burglar->getNumPicks() << " || Vault Key: " << hasVault << std::endl;
+		std::cout << "|| Rounds 'til Cops arrive: " << police->getRoundsTilCaught() << " || ";
+		std::cout << "Total Money: " << burglar->getMoney() << " || \n" << std::endl;
 
 		// Print out the Current Rooms Description
 		currRoom->roomDescription();
-		std::cout <<  std::endl;
 		do {
 
 			do {

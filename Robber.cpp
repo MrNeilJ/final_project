@@ -69,7 +69,8 @@
 
 
 Robber::Robber() {
-	lockPick = 10;
+	addPicks(10);
+
 	vaultKey = false;
 	timeToLeave = false;
 	money = 0;
@@ -86,11 +87,12 @@ void Robber::setVaultKey() {
 
 
 int Robber::getNumPicks() {
-	return lockPick;
+	return backpack.size();
 }
 
 void Robber::subtractNumPicks() {
-	lockPick--;
+	// get size of vector
+	backpack.pop_back();
 }
 
 bool Robber::getVaultKey() {
@@ -110,11 +112,16 @@ void Robber::setTimetoLeave(bool status) {
 }
 
 void Robber::addPicks(int amount) {
-	lockPick+=amount;
-	if (lockPick > 10) {
-		std::cout << "You cannot carry that many lock picks, leave some behind" << std::endl;
-		lockPick = 10;
+	Pick tempPick = Pick();
+	int tempAmt = amount;
+	for(int i = 0; i < amount && backpack.size() < 10; i++){
+		backpack.push_back(tempPick);
+		tempAmt--;
 	}
+	if (tempAmt > 0) {
+		std::cout << "\nYour bag is full, you had to leave " << tempAmt << " behind.\n" << std::endl;
+	}
+
 }
 
 

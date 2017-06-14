@@ -30,7 +30,7 @@ FrontRoom::FrontRoom() {
 void FrontRoom::roomDescription() {
 	if (searched){
 		std::cout << "You enter the front room again, the pens are in the same position. Escape once";
-		std::cout << "again is within your grasp." << std::endl;
+		std::cout << "again is within your grasp (Search room to Escape)." << std::endl;
 	}
 	else {
 		std::cout << "You pass multiple desks, some with pens attached to the desk.  Directly behind";
