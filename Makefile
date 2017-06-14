@@ -1,5 +1,5 @@
-output: main.o Cops.o EmptyRoom.o FrontRoom.o Managers.o Game.o Robber.o Room.o StartRoom.o menuMaker.o inputCheck.o Vault.o Windowed.o
-	g++ main.o Cops.o EmptyRoom.o FrontRoom.o Managers.o Game.o Robber.o Room.o StartRoom.o menuMaker.o inputCheck.o Vault.o Windowed.o -std=c++11 -o output
+output: main.o Cops.o EmptyRoom.o FrontRoom.o Managers.o Game.o Robber.o Room.o StartRoom.o menuMaker.o inputCheck.o Vault.o Windowed.o Pick.o
+	g++ main.o Cops.o EmptyRoom.o FrontRoom.o Managers.o Game.o Robber.o Room.o StartRoom.o menuMaker.o inputCheck.o Vault.o Windowed.o Pick.o -std=c++11 -o output
 
 main.o: main.cpp
 	g++ -std=c++11 -c main.cpp
@@ -40,5 +40,7 @@ Vault.o: Vault.cpp Vault.hpp
 Windowed.o: Windowed.cpp Windowed.hpp
 	g++ -std=c++11 -c Windowed.cpp
 
+Pick.o: Pick.cpp Pick.hpp
+	g++ -std=c++11 -c Pick.cpp
 clean:
 	rm *.o output

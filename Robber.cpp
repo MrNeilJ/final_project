@@ -1,116 +1,98 @@
-//
-// Created by Neil on 6/6/2017.
-//
+/**************************************************************
+ * Author: Neil Johnson
+ *
+ * Date: 6.13.2017
+ *
+ * Description: This is the implementation for the Robber Class.
+ * In here we allow the user to add money, add and remove picks
+ * and retrieve the status of multiple items that they may have.
+ **************************************************************/
 
 #include "Robber.hpp"
 
 
-/*void Robber::move() {
-	// Ask the user which direction they would like to move
-	menuMaker moveMenu("Which direction would you like to go?",
-					   "North", "South", "East", "West");
-
-	menuMaker examineOrMove("What would you like to do?",
-							"Search Room",
-							"Move to the next room");
-	int direction;
-	bool moved = false;
-	int choice;
-
-	// Loop until a valid response has been chosen
-	do {
-		// Give the user the description of the current room
-		currRoom->roomDescription();
-		std::cout << std::endl;
-
-		do {
-			// Allow the user to decide to either examine the room, or proceed to the next room
-			examineOrMove.prompt();
-			choice = examineOrMove.getResponse();
-
-			if (choice < 1 || choice > 2) {
-				std::cout << "Seriously? Pick an option and move on, we don't have time!" << std::endl;
-			}
-		} while(choice < 1 || choice > 2);
-
-		if (choice == 1) {
-			addMoney(currRoom->examine());
-			// Check to see if the robber found a key in that room
-			if (getLocation()->getFoundKey()) {
-				setVaultKey();
-			}
-			// Check to see if the robber decided to leave the game (either through the window or main entrance)
-			if (currRoom->getTimeToLeave()) {
-
-			}
-		}
-		else if (choice == 2) {
-			moveMenu.prompt();
-			direction = moveMenu.getResponse();
-			// Make sure the user selected a value between 1 and 4
-			if (direction >= 1 && direction <= 4) {
-				// Check to see if the direction has a valid room
-				if (!(currRoom->getRoom(direction))) {
-					std::cout << "You turn and face a wall, you cannot walk this direction." << std::endl;
-					std::cout << "Try a different direction" << std::endl;
-				}
-				else {
-					moved = true;
-					currRoom = currRoom->moveRoom(direction, lockPick, currRoom);
-				}
-			}
-			else {
-				std::cout << "That isn't an option, come on...you worry me." << std::endl;
-			}
-		}
-	} while (!moved);
-}*/
-
-
-
+/**************************************************************
+ * 						Robber::Robber()
+ * 	Description: Constructor for the Robber class
+ **************************************************************/
 Robber::Robber() {
 	addPicks(10);
-
 	vaultKey = false;
 	timeToLeave = false;
 	money = 0;
 }
 
-
+/**************************************************************
+ * 						Robber::addMoney()
+ * 	Description: Adds money to the money integer
+ **************************************************************/
 void Robber::addMoney(int input) {
 	money += input;
 }
 
+/**************************************************************
+ * 						Robber::setVaultKey()
+ * 	Description: Sets the ownership of the vault key to either
+ * 	true or false
+ **************************************************************/
 void Robber::setVaultKey() {
 	vaultKey = true;
 }
 
-
+/**************************************************************
+ * 						Robber::getNumPicks()
+ * 	Description: returns the number of Picks in the backpack
+ **************************************************************/
 int Robber::getNumPicks() {
 	return backpack.size();
 }
 
+/**************************************************************
+ * 						Robber::subtractNumPicks()
+ * 	Description: removes one pick from the bag
+ **************************************************************/
 void Robber::subtractNumPicks() {
 	// get size of vector
 	backpack.pop_back();
 }
 
+/**************************************************************
+ * 						Robber::getVaultKey()
+ * 	Description: Returns if the use has the key or not
+ **************************************************************/
 bool Robber::getVaultKey() {
 	return vaultKey;
 }
 
+/**************************************************************
+ * 						Robber::getMoney()
+ * 	Description: returns the value stored in the money variable
+ **************************************************************/
 int Robber::getMoney() {
 	return money;
 }
 
+/**************************************************************
+ * 						Robber::getTimeToLeave()
+ * 	Description: returns the value stored in timeToLeave
+ **************************************************************/
 bool Robber::getTimeToLeave() {
 	return timeToLeave;
 }
 
+/**************************************************************
+ * 						Robber::setTimeToLeave()
+ * 	Description: Modifies the value stored in timeToLeave
+ **************************************************************/
 void Robber::setTimetoLeave(bool status) {
 	timeToLeave = status;
 }
 
+/**************************************************************
+ * 						Robber::addPicks()
+ * 	Description: add picks to the backpack, if it is more than
+ * 	10 it will stop the user from adding picks.
+ **************************************************************/
 void Robber::addPicks(int amount) {
 	Pick tempPick = Pick();
 	int tempAmt = amount;

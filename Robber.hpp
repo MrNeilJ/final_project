@@ -1,6 +1,12 @@
-//
-// Created by Neil on 6/6/2017.
-//
+/**************************************************************
+ * Author: Neil Johnson
+ *
+ * Date: 6.13.2017
+ *
+ * Description: This is the header for the Robber Class.
+ * In here we allow the user to add money, add and remove picks
+ * and retrieve the status of multiple items that they may have.
+ **************************************************************/
 
 #ifndef FINAL_PROJECT_ROBBER_HPP
 #define FINAL_PROJECT_ROBBER_HPP
@@ -18,10 +24,6 @@ private:
 	bool	timeToLeave;
 public:
 	Robber();
-	/*void move();
-	void startMove();
-	bool leave();*/
-
 
 	void addMoney(int);
 	void setVaultKey();
